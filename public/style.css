@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Tahoma;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    list-style-type: none;
+    border-bottom: 1px solid darkgreen;
+}
+
+.main-nav a {
+    text-decoration: none;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    margin: 0 auto;
+}
+
+.main {
+    min-height: 500px;
+    margin-top: 20px;
+}
