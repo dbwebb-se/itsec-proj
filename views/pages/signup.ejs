@@ -1,0 +1,11 @@
+<% include ../partials/header %>
+<div class="main">
+    <h1>Sign up</h1>
+    <form action="/processsignup" method="GET">
+        <label for="username">Username:</label><input type="text" name="username" id="username">
+        <label for="password">Password:</label><input type="password" name="password" id="password">
+        <label for="password2">Retype password:</label><input type="password" name="password2" id="password2">
+        <input type="submit" value="Create me!">
+    </form>
+</div>
+<% include ../partials/footer %>

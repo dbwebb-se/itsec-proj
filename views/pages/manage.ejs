@@ -1,6 +1,15 @@
 <% include ../partials/header %>
 <div class="main">
-    <h3>Manage accounts</h3>
-    <p>A lot of Lorem Ipsum</p>
+    <h1>Manage accounts</h1>
+    <% if (session.user) { %>
+        <% if (session.user === "admin") { %>
+            <% include ../partials/admin-table %>
+
+        <% } else { %>
+            <% include ../partials/user-table %>
+        <% } %>
+    <% } else { %>
+        <div class="flash">You are not logged in.</div>
+    <% } %>
 </div>
 <% include ../partials/footer %>

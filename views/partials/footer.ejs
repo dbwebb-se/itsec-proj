@@ -1,5 +1,8 @@
     <footer>
-        <p>Copyright &copy;</p>
+        <p>&copy; Borg &amp; Boldt, Inc. All rights reserved.</p>
+        <% if (session.user) { %>
+            <p><a href="/logout">Logout <%= session.user %></a></p>
+        <% } %>
     </footer>
 </div>
 </body>
