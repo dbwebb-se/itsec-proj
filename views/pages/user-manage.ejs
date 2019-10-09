@@ -1,1 +1,16 @@
-
+<% include ../partials/header %>
+<div class="main">
+    <% if (session.flash) { %>
+        <div class="flash">
+            <%= session.flash %>
+        </div>
+        <% session.flash = null; %>
+    <% } %>
+    <h1>Manage accounts</h1>
+    <% if (session.user) { %>
+        <% include ../partials/user-table %>
+    <% } else { %>
+        <div class="flash">You are not logged in.</div>
+    <% } %>
+</div>
+<% include ../partials/footer %>

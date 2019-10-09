@@ -29,11 +29,20 @@ app.use((req, res, next) => {
 });
 
 function userAuth(req, res, next) {
-
-    let user = req.session.user;
-
-    if (user === undefined) {
+    if (req.session.user === undefined) {
         req.session.flash = "You have to login first.";
+        res.redirect(302, '/login');
+    } else if (req.session.user && req.session.user.name === "admin") {
+        req.session.flash = "Admin do not have any accounts.";
+        res.redirect(302, '/login');
+    } else {
+        return next();
+    }
+}
+
+function adminAuth(req, res, next) {
+    if (req.session.user && req.session.user.name != "admin") {
+        req.session.flash = "You are not admin.";
         res.redirect(302, '/login');
     } else {
         return next();
@@ -44,15 +53,26 @@ function userAuth(req, res, next) {
 
 app.get('/', (req, res) => res.render('pages/index'));
 
-app.get('/manage', userAuth, async (req, res) => {
-    let user = req.session.user;
+app.get(['/manage', '/manage/:what/:action'], userAuth, async (req, res) => {
 
-    if (req.session.user.name === "admin") {
-        app.locals.usernames = await dbmodule.selectAllUsers();
-        res.render('pages/admin-manage.ejs');
+    if (req.params.what && req.params.action) {
+        switch(req.params.what) {
+            case "account":
+                switch(req.params.action) {
+                    case "create":
+                        await dbmodule.createAccount(req.query.new_account_user_id, req.query.new_accountname);
+                    break;
+                }
+            break;
+
+        }
     } else {
-        res.render('pages/user-manage.ejs');
+        let user = req.session.user;
+
+        req.session.viewUser = await dbmodule.selectOneUser(user.name);
+        req.session.accounts = await dbmodule.getAccount(user.name);
     }
+    res.render('pages/user-manage.ejs');
     // let username;
     //
     // if (user === "admin" && req.query.manage_user) {
@@ -72,10 +92,30 @@ app.get('/manage', userAuth, async (req, res) => {
 });
 
 
-app.get('/manage-user', async (req, res) => {
-    app.local.data = ""
+// app.get('/user-manage', userAuth, async (req, res) => {
+//     user = req.session.user;
+//     app.locals.oneUser = await dbmodule.selectOneUser(user.name);
+//     app.locals.accounts = await dbmodule.getAccount(user.name);
+//     res.render('pages/user-manage.ejs');
+// });
 
-    res.render('pages/manage.ejs');
+app.get(['/admin-view', '/admin-view/:id'], adminAuth, async (req, res) => {
+    // user = req.session.user;
+    req.session.usernames = await dbmodule.selectAllUsers();
+    req.session.viewUser = null;
+    if (req.params.id) {
+        let viewUserName = await dbmodule.getUsernameById(req.params.id);
+        req.session.viewUser = await dbmodule.selectOneUser(viewUserName[0].name);
+        console.log(req.session.viewUser);
+        req.session.accounts = await dbmodule.getAccount(viewUserName[0].name);
+    }
+
+    res.render('pages/admin-view.ejs');
+});
+
+app.get('/process-admin-view', adminAuth, async (req, res) => {
+    let viewUserId = req.query.manage_user;
+    res.redirect(302, '/admin-view/' + viewUserId);
 });
 
 app.get('/login', (req, res) => {
@@ -101,6 +141,7 @@ app.get('/login-error', (req, res) => {
 app.get('/login-success', async (req, res) => {
     let user = await dbmodule.selectOneUser(req.query.user);
     req.session.user = user[0];
+    console.log(req.session.user);
     req.session.flash = "Welcome " + req.session.user.name;
     res.render("pages/login.ejs");
 });
@@ -109,7 +150,6 @@ app.get('/signup', (req, res) => res.render('pages/signup'));
 
 app.get('/processsignup', async (req, res) => {
     let userId = await dbmodule.createUser(req.query);
-    // let moneyId = await dbmodule.connectUserToMoney(userId);
 
     req.session.flash = req.query.username + " is created. Please login.";
     res.redirect(302, '/login');

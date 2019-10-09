@@ -85,3 +85,24 @@ button:hover, input[type=submit]:hover {
 .red {
     background-color: red;
 }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+
+
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #ddd;
+  color: black;
+}

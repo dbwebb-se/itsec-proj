@@ -3,18 +3,19 @@
 <head>
     <title>itsec project</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img class="logo" src="logo.png" alt="banking logo">
+            <img class="logo" src="/logo.png" alt="banking logo">
         </div>
         <ul class="main-nav">
             <li><a href="/">Start</a></li>
-            <li><a href="/manage">Manage Account</a></li>
             <% if (session.user && session.user.name === "admin") { %>
-                <li><a href="/view">View Users&amp;Accounts</a></li>
+                <li><a href="/admin-view">View Users&amp;Accounts</a></li>
+            <% } else { %>
+                <li><a href="/manage">Manage Account</a></li>
             <% } %>
             <li><a href="/login">Login</a></li>
         </ul>

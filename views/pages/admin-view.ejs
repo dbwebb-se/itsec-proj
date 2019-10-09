@@ -1,0 +1,37 @@
+<% include ../partials/header %>
+<div class="main">
+    <% if (session.flash) { %>
+        <div class="flash">
+            <%= session.flash %>
+        </div>
+        <% session.flash = null; %>
+    <% } %>
+    <% if (session.user) { %>
+        <h1>
+            Admin view of
+            <% if (session.viewUser) { %>
+                <%= session.viewUser[0].name %>
+            <% } else { %>
+                no one.
+            <% } %>
+        </h1>
+
+            <form action="/process-admin-view">
+                <select onchange="this.form.submit()" name="manage_user">
+                    <option value="">Select username...</option>
+                    <% session.usernames.forEach(function(user) { %>
+                        <option value="<%= user.id%>"><%= user.name %></option>
+                    <% }) %>
+                </select>
+            </form>
+            <% if (session.viewUser) { %>
+                <% include ../partials/admin-table %>
+            <% } %>
+
+
+
+    <% } else { %>
+        <div class="flash">You are not logged in.</div>
+    <% } %>
+</div>
+<% include ../partials/footer %>

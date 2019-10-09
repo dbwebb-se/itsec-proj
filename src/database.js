@@ -40,7 +40,7 @@ let theDb = {
             SELECT name
                 FROM users
             WHERE id = ?`;
-        let result = [];
+        
         return new Promise ((resolve, reject) => {
             this.db.all(sql, [userid], (err, rows) => {
                 if (err) {
