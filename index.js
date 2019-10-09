@@ -28,30 +28,29 @@ app.use((req, res, next) => {
     next();
 });
 
-// function isAdmin(req, res, next) {
-//     console.log(req.session.user.name);
-//     if (req.session.user.name === "admin") {
-//       return next();
-//     }
-//
-//     res.redirect('/manage-user');
-// }
+function userAuth(req, res, next) {
 
-// dbmodule.connect();
-
-app.get('/', (req, res) => res.render('pages/index'));
-
-app.get('/manage', async (req, res) => {
     let user = req.session.user;
 
     if (user === undefined) {
         req.session.flash = "You have to login first.";
         res.redirect(302, '/login');
-    } else if (user.name === "admin") {
+    } else {
+        return next();
+    }
+}
+
+// dbmodule.connect();
+
+app.get('/', (req, res) => res.render('pages/index'));
+
+app.get('/manage', userAuth, async (req, res) => {
+    let user = req.session.user;
+
+    if (req.session.user.name === "admin") {
+        app.locals.usernames = await dbmodule.selectAllUsers();
         res.render('pages/admin-manage.ejs');
     } else {
-
-
         res.render('pages/user-manage.ejs');
     }
     // let username;
