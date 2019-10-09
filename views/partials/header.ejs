@@ -13,5 +13,8 @@
         <ul class="main-nav">
             <li><a href="/">Start</a></li>
             <li><a href="/manage">Manage Account</a></li>
+            <% if (session.user && session.user.name === "admin") { %>
+                <li><a href="/view">View Users&amp;Accounts</a></li>
+            <% } %>
             <li><a href="/login">Login</a></li>
         </ul>

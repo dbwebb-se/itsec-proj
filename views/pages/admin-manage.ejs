@@ -9,7 +9,7 @@
     <h1>Manage accounts</h1>
     <% if (session.user) { %>
         <% if (session.user === "admin") { %>
-            <form action="/manage">
+            <form action="/admin-manage">
             <select onchange="this.form.submit()" name="manage_user" id="admin_select">
                 <% usernames.forEach(function(user) { %>
                     <option <%= user.id == session.manage_user ? "selected" : "" %> value="<%= user.id%>"><%= user.name %></option>

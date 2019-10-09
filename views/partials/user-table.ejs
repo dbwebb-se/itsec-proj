@@ -1,16 +1,55 @@
-<form action="/user-change">
+<form action="/update">
+    <h3>User</h3>
     <table class="manage-users">
         <tr>
-            <th>id</th><th>name</th><th>password</th><th>amount</th>
+            <th>Id</th><th>Username</th><th>Password</th>
         </tr>
-        <% all.forEach(function(item) { %>
+        <tr>
+            <td><input type="text" value="<%= oneUser[0].id %>" name="id" readonly></td>
+            <td><input type="text" value="<%= oneUser[0].name %>" name="name"></td>
+            <td><input type="text" value="<%= oneUser[0].pass %>" name="password"></td>
+        </tr>
+
+        <tr><td><input type="submit" value="Change user" name="change"></td></tr>
+    </table>
+</form>
+<form action="/update">
+    <table class="manage-users">
+        <h3>Accounts</h3>
+        <tr>
+            <th>id</th><th>Accountname</th><th>Amount</th>
+        </tr>
+        <% accounts.forEach(function(item) { %>
             <tr>
-                <td><input type="text" value="<%= item.id %>" name="id" readonly></td>
-                <td><input type="text" value="<%= item.name %>" name="name"></td>
-                <td><input type="text" value="<%= item.pass %>" name="password"></td>
-                <td><input type="text" value="<%= item.amount %>" name="amount"></td>
+                <td><input type="text" value="<%= item.id %>" name="acc_id" readonly></td>
+                <td><input type="text" value="<%= item.acc_name %>" name="acc_name"></td>
+                <td><input type="text" value="<%= item.amount %>" name="acc_amount"></td>
             </tr>
         <% }) %>
+        <tr><td><input type="submit" value="Change account" name="change"></td></tr>
     </table>
-    <input type="submit" value="Make change" name="user-change">
+</form>
+<form action="/create-account">
+    <table class="manage_user">
+    <h1>Create account</h1>
+    <tr>
+        <td><input type="text" name="new_accountname" id="new_accountname" placeholder="Accountname"></td>
+        <td><input type="submit" value="Create account" name="create"></td>
+        <input type="hidden" value="<%= oneUser[0].id %>" name="new_account_user_id">
+    </tr>
+</form>
+
+<form action="/delete-account">
+    <table class="manage_user">
+        <h1>Delete account</h1>
+        <tr>
+            <td>
+                <select name="del_account">
+                    <% accounts.forEach(function(item) { %>
+                        <option value="<%= item.id %>"><%= item.acc_name %></option>
+                    <% }) %>
+                </select>
+            </td><td><input type="submit" class="red" value="Delete account" name="delete"></td>
+        </tr>
+    </table>
 </form>
