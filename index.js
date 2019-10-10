@@ -2,9 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 const port = 1337;
-// let bodyParser = require("body-parser");
-// let cookieParser = require('cookie-parser');
-// let dbmodule = require('./src/database');
 let functions = require('./src/functions');
 let manageFunctions = {
     accountcreate: functions.accountcreate,
@@ -14,9 +11,6 @@ let manageFunctions = {
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
-// app.use(cookieParser());
 
 app.use(session({
     key: "user_id",

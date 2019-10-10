@@ -1,3 +1,7 @@
+@import "prettyform.css";
+/* @import "signupform.css"; */
+@import "select.css";
+
 * {
     margin: 0;
     padding: 0;
@@ -50,7 +54,7 @@ footer {
     margin-top: 20px;
 }
 
-input[type=text], input[type=password], select {
+/* input[type=text], input[type=password], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -73,13 +77,14 @@ button, input[type=submit] {
 
 button:hover, input[type=submit]:hover {
   background-color: #45a049;
-}
+} */
 
 .flash {
-    text-align: center;
-    background-color: orange;
-    height: 50px;
-    padding: 1em;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 3px 3px 3px 3px;
+    color: #059;
+    background-color: #BEF;
 }
 
 .red {

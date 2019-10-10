@@ -17,6 +17,8 @@
             <% } else if (session.user) { %>
                 <li><a href="/manage">Manage Account</a></li>
                 <li><a href="/transfer">Transfer</a></li>
+                <li><a href="/logout">Logout</a></li>
+            <% } else { %>
+                <li><a href="/login">Login</a></li>
             <% } %>
-            <li><a href="/login">Login</a></li>
         </ul>
