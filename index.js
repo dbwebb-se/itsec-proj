@@ -56,23 +56,24 @@ app.get('/', (req, res) => res.render('pages/index'));
 app.get(['/manage', '/manage/:what/:action'], userAuth, async (req, res) => {
 
     if (req.params.what && req.params.action) {
-        switch(req.params.what) {
-            case "account":
-                switch(req.params.action) {
-                    case "create":
-                        await dbmodule.createAccount(req.query.new_account_user_id, req.query.new_accountname);
-                    break;
-                }
-            break;
+        if (req.params.what === "account") {
+            if (req.params.action === "create") {
+                await dbmodule.createAccount(req.query.new_account_user_id, req.query.new_accountname);
+            } else if (req.params.action === "update") {
+                
+            }
+        } else if (req.params.what === "user") {
+            if (req.params.action === "update") {
 
-        }
+            }
+        res.redirect(302, '/manage');
     } else {
         let user = req.session.user;
 
         req.session.viewUser = await dbmodule.selectOneUser(user.name);
         req.session.accounts = await dbmodule.getAccount(user.name);
+        res.render('pages/user-manage.ejs');
     }
-    res.render('pages/user-manage.ejs');
     // let username;
     //
     // if (user === "admin" && req.query.manage_user) {

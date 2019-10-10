@@ -35,7 +35,7 @@
     <tr>
         <td><input type="text" name="new_accountname" id="new_accountname" placeholder="Accountname"></td>
         <td><input type="submit" value="Create account" name="create"></td>
-        <input type="hidden" value="<%= session.viewUser.id %>" name="new_account_user_id">
+        <input type="hidden" value="<%= session.viewUser[0].id %>" name="new_account_user_id">
     </tr>
 </form>
 
