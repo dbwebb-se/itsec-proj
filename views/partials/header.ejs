@@ -14,8 +14,9 @@
             <li><a href="/">Start</a></li>
             <% if (session.user && session.user.name === "admin") { %>
                 <li><a href="/admin-view">View Users&amp;Accounts</a></li>
-            <% } else { %>
+            <% } else if (session.user) { %>
                 <li><a href="/manage">Manage Account</a></li>
+                <li><a href="/transfer">Transfer</a></li>
             <% } %>
             <li><a href="/login">Login</a></li>
         </ul>

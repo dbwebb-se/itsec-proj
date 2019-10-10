@@ -40,7 +40,7 @@ let theDb = {
             SELECT name
                 FROM users
             WHERE id = ?`;
-        
+
         return new Promise ((resolve, reject) => {
             this.db.all(sql, [userid], (err, rows) => {
                 if (err) {
@@ -104,6 +104,40 @@ let theDb = {
 
         return new Promise ((resolve, reject) => {
             this.db.run(sql, [data.name, data.password, data.id], function(err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(this.changes);
+                }
+            })
+
+        })
+    },
+    withdraw: function(from, amount) {
+        let sql = `
+        UPDATE accounts
+            SET amount = amount - ?
+            WHERE id = ?`;
+
+        return new Promise ((resolve, reject) => {
+            this.db.run(sql, [amount, from], function(err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(this.changes);
+                }
+            })
+
+        })
+    },
+    deposit: function(to, amount) {
+        let sql = `
+        UPDATE accounts
+            SET amount = amount + ?
+            WHERE id = ?`;
+
+        return new Promise ((resolve, reject) => {
+            this.db.run(sql, [amount, to], function(err) {
                 if (err) {
                     reject(err);
                 } else {

@@ -1,0 +1,14 @@
+<form action="/manage/user/update">
+    <h3>User</h3>
+    <table class="manage-users">
+        <tr>
+            <th>Id</th><th>Username</th><th>Password</th>
+        </tr>
+        <tr>
+            <td><input type="text" value="<%= session.viewUser[0].id %>" name="id" readonly></td>
+            <td><input type="text" value="<%= session.viewUser[0].name %>" name="name"></td>
+            <td><input type="text" value="<%= session.viewUser[0].pass %>" name="password"></td>
+        </tr>
+        <tr><td><input type="submit" value="Change user" name="change"></td></tr>
+    </table>
+</form>
