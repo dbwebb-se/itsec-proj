@@ -1,5 +1,5 @@
 @import "prettyform.css";
-/* @import "signupform.css"; */
+@import "manage-parts.css";
 @import "select.css";
 
 * {
@@ -47,6 +47,7 @@ h1 {
 
 footer {
     text-align: center;
+    margin-top: 30px;
 }
 
 .main {
@@ -87,8 +88,10 @@ button:hover, input[type=submit]:hover {
     background-color: #BEF;
 }
 
-.red {
-    background-color: red;
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 table {
@@ -97,17 +100,31 @@ table {
 }
 
 table td, table th {
-  border: 1px solid #ddd;
-  padding: 8px;
+  /* border: 1px solid #ddd; */
+  /* padding: 8px; */
 }
 
 
-
+.left-border {
+    border-left: 0.5px solid grey;
+}
 
 table th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
-  background-color: #ddd;
+  background-image: linear-gradient(top, #f1f3f3, #d4dae0);
+  /* border-bottom: 1px solid #a6abaf; */
+  border-radius: 6px 6px 0 0;
+  box-sizing: border-box;
+  /* color: #727678; */
+  /* display: block; */
+  height: 43px;
+  font: 600 14px/1 'Open Sans', sans-serif;
+  padding-top: 14px;
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.2), 0 1px 0 #fff;
+  /* text-align: left; */
+  /* background-color: #ddd; */
   color: black;
 }

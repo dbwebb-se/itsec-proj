@@ -1,6 +1,6 @@
-<form action="/manage/account/update">
+<form class="manage-part" action="/manage/account/update">
     <table class="manage-users">
-        <h3>Accounts</h3>
+        <h1>Account information</h1>
         <tr>
             <th>id</th><th>Accountname</th><th>Amount</th>
         </tr>
@@ -11,6 +11,6 @@
                 <td><input type="text" value="<%= item.amount %>" name="acc_amount" readonly></td>
             </tr>
         <% }) %>
-        <tr><td><input type="submit" value="Change account" name="change"></td></tr>
+        <tr><td><input type="submit" value="Change accountname" name="change"></td></tr>
     </table>
 </form>

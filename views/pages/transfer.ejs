@@ -6,7 +6,9 @@
         </div>
         <% session.flash = null; %>
     <% } %>
-
-    <% include ../partials/forms/transfer-form %>
+    <div class="row">
+        <% include ../partials/forms/transfer-form %>
+        <% include ../partials/forms/action-form %>
+    </div>
 </div>
 <% include ../partials/footer %>

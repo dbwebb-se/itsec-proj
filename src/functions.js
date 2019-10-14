@@ -1,5 +1,11 @@
 let dbmodule = require('./database');
 
+async function userupdate(req, res) {
+     let result = await dbmodule.updateUser(req.query);
+     req.session.flash = "Updated user information.";
+     res.redirect(302, '/manage');
+}
+
 async function accountcreate(req, res) {
     let userId = req.query.new_account_user_id;
     let accountName = req.query.new_accountname;
@@ -49,7 +55,6 @@ async function generateAdminView(req, res) {
     if (req.params.id) {
         let viewUserName = await dbmodule.getUsernameById(req.params.id);
         req.session.viewUser = await dbmodule.selectOneUser(viewUserName[0].name);
-        console.log(req.session.viewUser);
         req.session.accounts = await dbmodule.getAccount(viewUserName[0].name);
     }
 
@@ -76,7 +81,6 @@ async function handleSignup(req, res) {
 }
 
 async function transfer(req, res) {
-    console.log(req.session.user);
     req.session.accounts = await dbmodule.getAccount(req.session.user.name);
     res.render("pages/transfer.ejs");
 }
@@ -88,6 +92,19 @@ async function makeTransfer(req, res) {
     await dbmodule.withdraw(from, amount);
     await dbmodule.deposit(to, amount);
     req.session.flash = `Transfered ${amount} from id ${from} to id ${to}.`;
+    res.redirect(302, '/transfer');
+}
+
+async function makeAction(req, res) {
+    let acc = req.query.toAccount;
+    let amount = req.query.amount;
+    if (req.query.action === "Deposit") {
+        await dbmodule.deposit(acc, amount);
+        req.session.flash = `Deposited ${amount} pieces of gold to account: ${acc}.`;
+    } else if (req.query.action === "Withdraw"){
+        await dbmodule.withdraw(acc, amount);
+        req.session.flash = `Withdrawed ${amount} pieces of gold from account: ${acc}.`;
+    }
     res.redirect(302, '/transfer');
 }
 
@@ -112,6 +129,7 @@ module.exports = {
     accountcreate: accountcreate,
     accountupdate: accountupdate,
     accountdelete: accountdelete,
+    userupdate: userupdate,
     loginUser: loginUser,
     generateOneUserWithAccounts: generateOneUserWithAccounts,
     generateAdminView: generateAdminView,
@@ -121,6 +139,7 @@ module.exports = {
     processAdminView: processAdminView,
     transfer: transfer,
     makeTransfer: makeTransfer,
+    makeAction: makeAction,
     getAll: getAll,
     logout: logout
 }

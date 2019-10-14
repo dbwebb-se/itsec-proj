@@ -1,14 +1,13 @@
-<form action="/manage/account/delete">
+<form class="manage-part" action="/manage/account/delete">
     <table class="manage_user">
-        <h1>Delete account</h1>
-        <tr>
-            <td>
-                <select name="del_account">
-                    <% session.accounts.forEach(function(item) { %>
-                        <option value="<%= item.id %>"><%= item.acc_name %></option>
-                    <% }) %>
-                </select>
-            </td><td><input type="submit" class="red" value="Delete account" name="delete"></td>
-        </tr>
+    <h1>Delete account</h1>
+    <tr>
+        <td><select name="del_account">
+            <% session.accounts.forEach(function(item) { %>
+                <option value="<%= item.id %>"><%= item.acc_name %></option>
+            <% }) %>
+        </select>
+    <input type="submit" value="Delete account" name="delete"></td>
+    </tr>
     </table>
 </form>

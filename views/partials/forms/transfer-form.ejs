@@ -1,4 +1,5 @@
-<form action="/process-transfer">
+<form class="pretty" action="/process-transfer">
+    <h1>Transfer money</h1>
     <select name="fromAccount">
         <option value="">Transfer from...</option>
         <% session.accounts.forEach(function(account) { %>
@@ -11,6 +12,6 @@
             <option value="<%= account.id%>"><%= account.acc_name %>( <%= account.amount %> )</option>
         <% }) %>
     </select>
-    Amount: <input type="number" name="amount">
-    <input type="submit" value="Make transfer">
+    <input type="number" name="amount" placeholder="Amount">
+    <input type="submit" value="Transfer">
 </form>

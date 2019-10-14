@@ -6,7 +6,8 @@ let functions = require('./src/functions');
 let manageFunctions = {
     accountcreate: functions.accountcreate,
     accountupdate: functions.accountupdate,
-    accountdelete: functions.accountdelete
+    accountdelete: functions.accountdelete,
+    userupdate: functions.userupdate
 };
 
 app.set('view engine', 'ejs');
@@ -67,6 +68,7 @@ app.get('/login-error', (req, res) => functions.loginError(req, res));
 app.get('/login-success', async (req, res) => functions.loginSuccess(req, res));
 app.get('/transfer', userAuth, async (req, res) => functions.transfer(req, res));
 app.get('/process-transfer', userAuth, async (req, res) => functions.makeTransfer(req, res));
+app.get('/process-action', userAuth, async (req, res) => functions.makeAction(req, res));
 app.get('/logout', (req, res) => functions.logout(req, res));
 app.get('/signup', (req, res) => res.render('pages/signup'));
 app.get('/process-signup', async (req, res) => functions.handleSignup(req, res));

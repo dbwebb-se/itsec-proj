@@ -1,9 +1,9 @@
-<form action="/manage/account/create">
+<form class="manage-part" action="/manage/account/create">
     <table class="manage_user">
     <h1>Create account</h1>
     <tr>
-        <td><input type="text" name="new_accountname" id="new_accountname" placeholder="Accountname"></td>
-        <td><input type="submit" value="Create account" name="create"></td>
+        <td><input type="text" name="new_accountname" id="new_accountname" placeholder="Accountname"><input type="submit" value="Create account" name="create"></td>
         <input type="hidden" value="<%= session.viewUser[0].id %>" name="new_account_user_id">
     </tr>
+    </table>
 </form>

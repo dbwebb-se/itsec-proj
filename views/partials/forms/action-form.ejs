@@ -1,0 +1,13 @@
+<form class="pretty" action="/process-action">
+    <h1>Deposit money</h1>
+    <select name="toAccount">
+        <option value="">Choose account...</option>
+        <% session.accounts.forEach(function(account) { %>
+            <option value="<%= account.id%>"><%= account.acc_name %>( <%= account.amount %> )</option>
+        <% }) %>
+    </select>
+    <input type="number" name="amount" placeholder="Amount">
+    <input type="submit" value="Deposit" name="action">
+    <input type="submit" value="Withdraw" name="action">
+
+</form>

@@ -1,6 +1,7 @@
 {
   "name": "itsec-proj",
   "version": "1.0.0",
+  "repository": "https://github.com/dbwebb-se/itsec-proj",
   "description": "Application for project in itsec course.",
   "main": "index.js",
   "scripts": {
