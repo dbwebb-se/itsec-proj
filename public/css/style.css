@@ -1,6 +1,7 @@
 @import "prettyform.css";
 @import "manage-parts.css";
 @import "select.css";
+@import url('https://fonts.googleapis.com/css?family=Black+Ops+One&display=swap');
 
 * {
     margin: 0;
@@ -14,6 +15,24 @@ body {
 
 h1 {
     margin-bottom:1em;
+}
+
+.frontimg {
+    height: 500px;
+    margin-left: 150px;
+}
+
+.fronttext {
+    font-family: 'Black Ops One', cursive;
+    font-size: 52px;
+}
+
+.red {
+    color: red;
+}
+
+.center {
+    margin: 0 auto;
 }
 
 .main-nav::before {
