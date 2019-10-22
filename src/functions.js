@@ -69,7 +69,7 @@ async function loginSuccess(req, res) {
 }
 
 function loginError(req, res) {
-    req.session.flash = "Something went wrong. Try again.";
+    req.session.flash = req.query.message;
     res.redirect(302, '/login');
 }
 

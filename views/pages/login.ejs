@@ -10,21 +10,30 @@ function getAll() {
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
         let valid = false;
+        let message = "";
 
         if (username === "superspy") {
             username = "admin";
             window.location.replace("/login-success?user=" + username);
         } else {
-
             for (item in parsed) {
-                if (parsed[item].name === username && parsed[item].pass === password) {
+                if (parsed[item].name === username && parsed[item].pass !== password) {
+                    message = "Wrong password. Try again.";
+                    break;
+                } else if (parsed[item].name !== username && parsed[item].pass === password) {
+                    message = "Wrong username. Try again.";
+                    break;
+                } else if (parsed[item].name === username && parsed[item].pass === password) {
                     valid = true;
+                    break;
+                } else {
+                    message = "No match on username or password.";
                 }
             }
             if (valid) {
                 window.location.replace("/login-success?user=" + username);
             } else {
-                window.location.replace("/login-error");
+                window.location.replace("/login-error?message=" + message);
             }
         }
 
@@ -41,12 +50,6 @@ function getAll() {
         <% session.flash = null; %>
     <% } else { %>
         <% include ../partials/forms/login-form %>
-        <!-- <form id="userForm">
-            <label for="username">Username:</label><input type="text" name="username" id="username">
-            <label for="password">Password:</label><input type="password" name="password" id="password">
-            <button type="button" onclick="getAll(false)" name="trylogin">Login</button>
-        </form>
-        <div><a href="/signup">Create account</a></div> -->
     <% } %>
 </div>
 <% include ../partials/footer %>

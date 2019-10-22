@@ -10,7 +10,6 @@ select {
     max-width: 100%;
     box-sizing: border-box;
     margin: 29px 0 25px 29px;
-    /* margin: 10px auto 10px auto; */
     border: 1px solid #aaa;
     box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
     border-radius: .5em;

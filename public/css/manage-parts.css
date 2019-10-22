@@ -2,9 +2,7 @@
     background: #eceeee;
     border: 1px solid #42464b;
     border-radius: 6px;
-    /* height: 257px; */
     margin: 20px auto 0;
-    /* width: 298px; */
     padding: 10px;
 }
 .manage-part h1 {
@@ -57,10 +55,7 @@
     text-transform:uppercase;
     text-align:center;
     text-shadow:1px 1px 0px #37a69b;
-    /* padding-top:10px;
-    padding-bottom:10px; */
     margin: 29px 0 25px 29px;
-    /* margin: 21px 28px 20px 0px; */
     position:relative;
     cursor:pointer;
     border: none;

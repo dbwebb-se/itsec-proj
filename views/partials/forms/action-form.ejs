@@ -1,5 +1,5 @@
 <form class="pretty" action="/process-action">
-    <h1>Deposit money</h1>
+    <h1>Deposit or withdraw money</h1>
     <select name="toAccount">
         <option value="">Choose account...</option>
         <% session.accounts.forEach(function(account) { %>
@@ -9,5 +9,4 @@
     <input type="number" name="amount" placeholder="Amount">
     <input type="submit" value="Deposit" name="action">
     <input type="submit" value="Withdraw" name="action">
-
 </form>

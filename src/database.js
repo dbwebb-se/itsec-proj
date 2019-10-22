@@ -216,5 +216,4 @@ let theDb = {
     }
 }
 
-// this.db.serialize(() => { });
 module.exports = theDb;
