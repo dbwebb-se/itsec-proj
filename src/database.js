@@ -36,13 +36,10 @@ let theDb = {
         })
     },
     getUsernameById: function(userid) {
-        let sql = `
-            SELECT name
-                FROM users
-            WHERE id = ?`;
+        let sql = "SELECT name FROM users WHERE id = '" + userid + "'";
 
         return new Promise ((resolve, reject) => {
-            this.db.all(sql, [userid], (err, rows) => {
+            this.db.all(sql, (err, rows) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -52,13 +49,10 @@ let theDb = {
         })
     },
     selectOneUser: function(user) {
-        let sql = `
-        SELECT id, name, pass
-            FROM users
-        WHERE name = ?`;
+        let sql = "SELECT id, name, pass FROM users WHERE name = '" + user + "'";
 
         return new Promise ((resolve, reject) => {
-            this.db.all(sql, [user], (err, rows) => {
+            this.db.all(sql, (err, rows) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -68,10 +62,9 @@ let theDb = {
         })
     },
     createUser: function(data) {
-        let sql = `
-        INSERT INTO users (name, pass) VALUES(?, ?)`;
+        let sql = "INSERT INTO users (name, pass) VALUES('" + data.username + "', '" + data.password + "')";
         return new Promise ((resolve, reject) => {
-            this.db.run(sql, [data.username, data.password], function(err) {
+            this.db.run(sql, function(err) {
                 if (err) {
                     reject(err);
                 } else {
@@ -82,10 +75,9 @@ let theDb = {
         })
     },
     createAccount: function(accId, accName) {
-        let sql = `
-        INSERT INTO accounts (user_id, acc_name, amount) VALUES(?, ?, ?)`;
+        let sql = "INSERT INTO accounts (user_id, acc_name, amount) VALUES(" + accId + ",'" + accName + "', " + 0 + ")";
         return new Promise ((resolve, reject) => {
-            this.db.run(sql, [accId, accName, 0], function(err) {
+            this.db.run(sql, function(err) {
                 if (err) {
                     reject(err);
                 } else {
@@ -96,14 +88,10 @@ let theDb = {
         })
     },
     updateUser: function(data) {
-        let sql = `
-        UPDATE users
-            SET name = ?,
-                pass = ?
-            WHERE id = ?`;
+        let sql = "UPDATE users SET name = " + data.name + ", pass = " + data.password + " WHERE id = " + data.id;
 
         return new Promise ((resolve, reject) => {
-            this.db.run(sql, [data.name, data.password, data.id], function(err) {
+            this.db.run(sql, function(err) {
                 if (err) {
                     reject(err);
                 } else {
@@ -114,13 +102,10 @@ let theDb = {
         })
     },
     withdraw: function(from, amount) {
-        let sql = `
-        UPDATE accounts
-            SET amount = amount - ?
-            WHERE id = ?`;
+        let sql = "UPDATE accounts SET amount = amount - " + amount + " WHERE id = " + from;
 
         return new Promise ((resolve, reject) => {
-            this.db.run(sql, [amount, from], function(err) {
+            this.db.run(sql, function(err) {
                 if (err) {
                     reject(err);
                 } else {
@@ -131,13 +116,10 @@ let theDb = {
         })
     },
     deposit: function(to, amount) {
-        let sql = `
-        UPDATE accounts
-            SET amount = amount + ?
-            WHERE id = ?`;
+        let sql = "UPDATE accounts SET amount = amount + " + amount + " WHERE id = " + to;
 
         return new Promise ((resolve, reject) => {
-            this.db.run(sql, [amount, to], function(err) {
+            this.db.run(sql, function(err) {
                 if (err) {
                     reject(err);
                 } else {
@@ -148,14 +130,10 @@ let theDb = {
         })
     },
     updateAccount: function(name, amount, id) {
-        let sql = `
-        UPDATE accounts
-            SET acc_name = ?,
-                amount = ?
-            WHERE id = ?`;
+        let sql = "UPDATE accounts SET acc_name = " + name + ", amount = " + amount + " WHERE id = " + id;
 
         return new Promise ((resolve, reject) => {
-            this.db.run(sql, [name, amount, id], function(err) {
+            this.db.run(sql, function(err) {
                 if (err) {
                     reject(err);
                 } else {
@@ -166,30 +144,14 @@ let theDb = {
         })
     },
     deleteAccount: function(accId) {
-        let sql = `
-        DELETE FROM accounts
-        WHERE id = ?`;
+        let sql = "DELETE FROM accounts WHERE id = " + accId;
 
         return new Promise ((resolve, reject) => {
-            this.db.run(sql, [accId], function(err) {
+            this.db.run(sql, function(err) {
                 if (err) {
                     reject(err);
                 } else {
                     resolve(this.changes);
-                }
-            })
-
-        })
-    },
-    connectUserToMoney: function(userId) {
-        let sql = `
-        INSERT INTO money (user_id, amount) VALUES(?, ?)`;
-        return new Promise ((resolve, reject) => {
-            this.db.run(sql, [userId, 0], function(err) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(this.lastID);
                 }
             })
 
