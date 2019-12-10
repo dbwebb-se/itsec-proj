@@ -1,7 +1,17 @@
 let dbmodule = require('./database');
 
 async function userupdate(req, res) {
-     let result = await dbmodule.updateUser(req.query);
+    let result;
+
+    try {
+        result = await dbmodule.updateUser(req.query);
+    } catch(err) {
+        req.session.flash = err.message;
+    }
+
+     if (result) {
+         req.session.user.name = req.query.name;
+     }
      req.session.flash = "Updated user information.";
      res.redirect(302, '/manage');
 }
@@ -9,13 +19,20 @@ async function userupdate(req, res) {
 async function accountcreate(req, res) {
     let userId = req.query.new_account_user_id;
     let accountName = req.query.new_accountname;
-    await dbmodule.createAccount(userId, accountName);
+
+    try {
+        await dbmodule.createAccount(userId, accountName);
+    } catch(err) {
+        req.session.flash = err.message;
+    }
     res.redirect(302, '/manage');
 }
 
 async function accountupdate(req, res) {
     req.session.flash = "Updated ";
     let accIds = req.query.acc_id;
+    let rowsChanged;
+
     if (Array.isArray(accIds)) {
         for (let i = 0; i < accIds.length; i++) {
             rowsChanged = await dbmodule.updateAccount(req.query.acc_name[i], req.query.acc_amount[i], req.query.acc_id[i]);
@@ -23,14 +40,14 @@ async function accountupdate(req, res) {
     } else {
         rowsChanged = await dbmodule.updateAccount(req.query.acc_name, req.query.acc_amount, req.query.acc_id);
     }
-    req.session.flash += "account(s)";
+    req.session.flash += (rowsChanged + " account(s)");
     res.redirect(302, '/manage');
 }
 
 async function accountdelete(req, res) {
     let accId = req.query.del_account;
     req.session.flash = "Deleted account with id: " + accId;
-    result = await dbmodule.deleteAccount(accId);
+    let result = await dbmodule.deleteAccount(accId);
 
     res.redirect(302, '/manage');
 }
@@ -63,6 +80,7 @@ async function generateAdminView(req, res) {
 
 async function loginSuccess(req, res) {
     let user = await dbmodule.selectOneUser(req.query.user);
+
     req.session.user = user[0];
     req.session.flash = "Welcome " + req.session.user.name;
     res.render("pages/login.ejs");
@@ -98,6 +116,7 @@ async function makeTransfer(req, res) {
 async function makeAction(req, res) {
     let acc = req.query.toAccount;
     let amount = req.query.amount;
+
     if (req.query.action === "Deposit") {
         await dbmodule.deposit(acc, amount);
         req.session.flash = `Deposited ${amount} pieces of gold to account: ${acc}.`;

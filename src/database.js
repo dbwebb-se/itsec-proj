@@ -88,7 +88,7 @@ let theDb = {
         })
     },
     updateUser: function(data) {
-        let sql = "UPDATE users SET name = " + data.name + ", pass = " + data.password + " WHERE id = " + data.id;
+        let sql = "UPDATE users SET name = '" + data.name + "', pass = '" + data.password + "' WHERE id = " + data.id;
 
         return new Promise ((resolve, reject) => {
             this.db.run(sql, function(err) {
@@ -130,7 +130,7 @@ let theDb = {
         })
     },
     updateAccount: function(name, amount, id) {
-        let sql = "UPDATE accounts SET acc_name = " + name + ", amount = " + amount + " WHERE id = " + id;
+        let sql = "UPDATE accounts SET acc_name = '" + name + "', amount = " + amount + " WHERE id = " + id;
 
         return new Promise ((resolve, reject) => {
             this.db.run(sql, function(err) {

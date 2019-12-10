@@ -8,4 +8,6 @@ COPY package*.json ./
 
 RUN npm install
 
-CMD ["npm", "start"]
+ENTRYPOINT ["npm"]
+
+CMD ["start"]
